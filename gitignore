@@ -1,0 +1,36 @@
+# ============================================================
+# Sydney T1 Duty-Free Shop — .gitignore
+# ============================================================
+
+# ── Generated data files (large, reproducible from script) ──
+duty_free_data/
+*.db
+
+# ── Jupyter Notebook artifacts ───────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ── Virtual environments ─────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Tableau ──────────────────────────────────────────────────
+*.twbx
+*.hyper
+*.tde
+
+# ── OS files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ──────────────────────────────────────────────────────
+.vscode/
+.idea/
