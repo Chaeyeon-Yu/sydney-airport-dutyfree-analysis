@@ -1,0 +1,4 @@
+﻿Event_ID,Event_Name,Start_Date,End_Date,Target_Category,Boost_Weight,Nat_Boost,Nat_Weight
+E-01,New Year Kickoff,2024-01-01,2024-01-07,Souvenir,20,,
+E-02,Lunar New Year,2024-02-08,2024-02-18,Honey,30,"CN,KR","0.38,0.14"
+E-03,Easter Long Weekend,2024-03-29,2024-04-01,Confectionery,20,"AU,GB","0.35,0.14"

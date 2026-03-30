@@ -1,0 +1,109 @@
+﻿Product_SKU,Category,Item,Variant,Selling_Price,Cost_Price,Current_Stock,Safety_Stock
+SKU-001,Cosmetics,Lanolin Cream,A Brand 100ml,8.0,3.2,171,37
+SKU-002,Cosmetics,Lanolin Cream,B Brand 100ml,12.0,4.8,71,47
+SKU-003,Cosmetics,Lanolin Cream,A Brand 6-pack 100ml,36.0,14.4,71,44
+SKU-004,Cosmetics,Lanolin Cream,B Brand 6-pack 100ml,60.0,24.0,70,44
+SKU-005,Cosmetics,Sheep Placenta Cream,A Brand 100ml,9.0,3.6,175,34
+SKU-006,Cosmetics,Sheep Placenta Cream,B Brand 100ml Premium,22.0,8.8,156,37
+SKU-007,Cosmetics,Sheep Placenta Cream,A Brand 6-pack 100ml,45.0,18.0,200,29
+SKU-008,Cosmetics,Emu Oil Cream,A Brand 100ml,9.0,3.6,178,25
+SKU-009,Cosmetics,Emu Oil Cream,A Brand 6-pack 100ml,45.0,18.0,63,25
+SKU-010,Cosmetics,Paw Paw Ointment,L Paw Paw 75g,10.0,4.0,92,47
+SKU-011,Cosmetics,Paw Paw Ointment,G Paw Paw 75g,9.0,3.6,74,42
+SKU-012,Cosmetics,Wild Fern Skincare,Lip Balm,12.0,4.8,146,29
+SKU-013,Cosmetics,Wild Fern Skincare,Hand Cream,18.0,7.2,47,28
+SKU-014,Cosmetics,Wild Fern Skincare,Face Cream,27.0,10.8,121,36
+SKU-015,Cosmetics,Wild Fern Skincare,Face Mask,11.0,4.4,80,36
+SKU-016,Cosmetics,Wild Fern Skincare,Gift Set,42.0,16.8,100,48
+SKU-017,Liquor,Penfolds Wine,Max's,30.0,16.5,63,22
+SKU-018,Liquor,Penfolds Wine,Bin 407,115.0,63.25,120,43
+SKU-019,Liquor,Penfolds Wine,Bin 28,35.0,19.25,179,23
+SKU-020,Liquor,Penfolds Wine,Bin 389,120.0,66.0,124,41
+SKU-021,Liquor,Penfolds Wine,Grange,999.0,549.45,113,30
+SKU-022,Liquor,Johnnie Walker Whisky,Red Label 700ml,40.0,22.0,70,45
+SKU-023,Liquor,Johnnie Walker Whisky,Black Label 700ml,55.0,30.25,136,37
+SKU-024,Liquor,Johnnie Walker Whisky,Gold Label 700ml,100.0,55.0,85,49
+SKU-025,Liquor,Hennessy Cognac,VS 700ml,62.0,34.1,114,31
+SKU-026,Liquor,Hennessy Cognac,VSOP 700ml,88.0,48.4,72,49
+SKU-027,Liquor,Hennessy Cognac,XO 700ml,210.0,115.5,64,23
+SKU-028,Liquor,Absolut Vodka,Original 700ml,42.0,23.1,126,22
+SKU-029,Liquor,Absolut Vodka,Flavoured 700ml,45.0,24.75,188,21
+SKU-030,Liquor,Absolut Vodka,Elyx 700ml,72.0,39.6,135,41
+SKU-031,Liquor,Tanqueray Gin,London Dry 700ml,48.0,26.4,101,38
+SKU-032,Liquor,Tanqueray Gin,No. Ten 700ml,65.0,35.75,83,31
+SKU-033,Liquor,Tanqueray Gin,Rangpur 700ml,52.0,28.6,39,28
+SKU-034,Jewellery,Opal Jewellery,Earrings,85.0,34.0,117,44
+SKU-035,Jewellery,Opal Jewellery,Necklace,120.0,48.0,148,22
+SKU-036,Jewellery,Opal Jewellery,Pendant,220.0,88.0,125,40
+SKU-037,Jewellery,Opal Jewellery,Premium Opal,520.0,208.0,29,29
+SKU-038,Jewellery,Paua Shell Jewellery,Earrings,38.0,15.2,25,24
+SKU-039,Jewellery,Paua Shell Jewellery,Pendant,55.0,22.0,181,28
+SKU-040,Jewellery,Paua Shell Jewellery,Bracelet,75.0,30.0,188,36
+SKU-041,Jewellery,Paua Shell Jewellery,Ring,90.0,36.0,209,30
+SKU-042,Jewellery,Jade Jewellery,Pendant Small,65.0,26.0,176,22
+SKU-043,Jewellery,Jade Jewellery,Pendant Large,110.0,44.0,191,46
+SKU-044,Jewellery,Jade Jewellery,Bracelet,150.0,60.0,95,45
+SKU-045,Jewellery,Jade Jewellery,Ring,200.0,80.0,103,38
+SKU-046,Souvenir,SYD Keychain,Metal,12.0,4.2,81,39
+SKU-047,Souvenir,SYD Keychain,Acrylic,9.0,3.15,49,41
+SKU-048,Souvenir,SYD Mug,Standard 350ml,20.0,7.0,170,48
+SKU-049,Souvenir,SYD Mug,Large 500ml,25.0,8.75,207,29
+SKU-050,Souvenir,AUS Magnet,Standard,10.0,3.5,143,43
+SKU-051,Souvenir,AUS Magnet,3-Pack,18.0,6.3,105,33
+SKU-052,Souvenir,Kangaroo Plush,Small 20cm,18.0,6.3,231,36
+SKU-053,Souvenir,Kangaroo Plush,Large 40cm,45.0,15.75,117,21
+SKU-054,Souvenir,Koala Plush,Small 20cm,18.0,6.3,96,36
+SKU-055,Souvenir,Koala Plush,Large 40cm,45.0,15.75,184,20
+SKU-056,Souvenir,AUS Tea Towel,Single,18.0,6.3,227,41
+SKU-057,Confectionery,Cadbury Chocolate,Milk Chocolate 200g,9.0,4.5,129,25
+SKU-058,Confectionery,Cadbury Chocolate,Gift Box Assorted,16.0,8.0,109,46
+SKU-059,Confectionery,Cadbury Chocolate,Favourites Gift Box,22.0,11.0,109,47
+SKU-060,Confectionery,Tim Tam Biscuit,Original,7.0,3.5,83,26
+SKU-061,Confectionery,Tim Tam Biscuit,Dark Chocolate,7.0,3.5,224,45
+SKU-062,Confectionery,Tim Tam Biscuit,White,7.0,3.5,75,43
+SKU-063,Confectionery,Tim Tam Biscuit,Double Coat,7.0,3.5,210,43
+SKU-064,Confectionery,Tim Tam Biscuit,Gluten Free,7.0,3.5,71,26
+SKU-065,Confectionery,Tim Tam Biscuit,Chewy Caramel,7.0,3.5,196,28
+SKU-066,Confectionery,Tim Tam Biscuit,Jatz,7.0,3.5,188,49
+SKU-067,Confectionery,Patons Chocolate,Milk Chocolate 200g,22.0,11.0,199,20
+SKU-068,Confectionery,Patons Chocolate,Dark Chocolate 200g,22.0,11.0,70,47
+SKU-069,Confectionery,Patons Chocolate,Gift Box,27.0,13.5,123,43
+SKU-070,Confectionery,Lindt Chocolate,Excellence 70% 100g,12.0,6.0,30,24
+SKU-071,Confectionery,Lindt Chocolate,Lindor Box 200g,22.0,11.0,183,23
+SKU-072,Confectionery,Lindt Chocolate,Gift Box Assorted,35.0,17.5,194,21
+SKU-073,Confectionery,Macadamia Nuts,Honey Roasted 100g,13.0,6.5,181,22
+SKU-074,Confectionery,Macadamia Nuts,Mixed Flavour 200g,27.0,13.5,39,37
+SKU-075,Confectionery,Macadamia Nuts,Gift Tin 300g,36.0,18.0,241,43
+SKU-076,Confectionery,Kangaroo Jerky,Original 50g,11.0,5.5,197,47
+SKU-077,Confectionery,Kangaroo Jerky,Original 100g,17.0,8.5,203,24
+SKU-078,Apparel,AUS Souvenir T-Shirt,Kids,28.0,11.2,205,30
+SKU-079,Apparel,AUS Souvenir T-Shirt,Adult,40.0,16.0,52,30
+SKU-080,Apparel,AUS Souvenir Hoodie,Standard,55.0,22.0,47,30
+SKU-081,Apparel,AUS Souvenir Hoodie,Premium,80.0,32.0,145,43
+SKU-082,Apparel,Ugg Boots,Classic Short,110.0,44.0,224,39
+SKU-083,Apparel,Ugg Boots,Classic Tall,180.0,72.0,111,26
+SKU-084,Apparel,Ugg Slipper,Slipper,100.0,40.0,117,23
+SKU-085,Apparel,AUS Souvenir Cap,Standard,18.0,7.2,116,27
+SKU-086,Apparel,AUS Souvenir Cap,Premium,27.0,10.8,168,27
+SKU-087,Honey,Comvita,UMF 5+,45.0,20.25,208,28
+SKU-088,Honey,Comvita,UMF 10+,60.0,27.0,154,28
+SKU-089,Honey,Comvita,UMF 15+,90.0,40.5,83,20
+SKU-090,Honey,Comvita,UMF 20+,170.0,76.5,168,28
+SKU-091,Honey,Manuka Health,MGO 263+,55.0,24.75,125,32
+SKU-092,Honey,Manuka Health,MGO 400+,75.0,33.75,125,49
+SKU-093,Honey,Beepower,MGO 115+,35.0,15.75,89,34
+SKU-094,Honey,Beepower,MGO 263+,45.0,20.25,176,49
+SKU-095,Indigenous,Aboriginal Art Print,A4 Print,28.0,8.4,79,22
+SKU-096,Indigenous,Aboriginal Art Print,A3 Print,55.0,16.5,225,46
+SKU-097,Indigenous,Aboriginal Art Print,Framed A3,110.0,33.0,91,39
+SKU-098,Indigenous,Boomerang,Painted Small,25.0,7.5,213,30
+SKU-099,Indigenous,Boomerang,Painted Large,55.0,16.5,151,41
+SKU-100,Indigenous,Indigenous Hand Cream,50ml,14.0,4.2,185,44
+SKU-101,Indigenous,Indigenous Hand Cream,100ml,24.0,7.2,185,36
+SKU-102,Indigenous,Indigenous Lip Balm,Single,9.0,2.7,92,40
+SKU-103,Indigenous,Indigenous Lip Balm,3-Pack,18.0,5.4,73,26
+SKU-104,Indigenous,Indigenous Kitchenware,Coaster Set,22.0,6.6,192,28
+SKU-105,Indigenous,Indigenous Kitchenware,Cutting Board,48.0,14.4,116,38
+SKU-106,Tea,T2 Tea,Small Tin 50g,22.0,8.8,94,26
+SKU-107,Tea,T2 Tea,Large Tin 100g,42.0,16.8,85,21
+SKU-108,Tea,T2 Tea,Gift Set,62.0,24.8,95,45
