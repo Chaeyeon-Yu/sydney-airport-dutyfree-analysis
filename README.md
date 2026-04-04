@@ -17,7 +17,7 @@ Designed to practise SQL analytics, data modelling, and Tableau visualisation �
 | **Setting** | Sydney Int'l Airport (T1) Duty-Free Gift Shop — Retail Transaction Data |
 | **Period** | 1 January 2024 – 31 December 2024 (52 weeks) |
 | **Tables** | 5 |
-| **Total records** | 20,219 Transactions |
+| **Total records** | 22,194 Transactions |
 | **Output** | 5 CSV files + 1 SQLite database |
 | **Reproducibility** | `random.seed(42)` fixed |
 
@@ -65,7 +65,7 @@ flight_schedules ───┘         │
 | product_master | 108 | product_sku | 108 SKUs across 9 categories |
 | flight_schedules | 5,720 | flight_no + departure_time | 52-week departure schedule |
 | holiday_events | 6 | event_id | Jan–Dec holiday event calendar |
-| transactions | 20,219 | tx_id | All transactions details|
+| transactions | 22,194 | tx_id | All transactions details|
 ---
 
 ## 📐 Design Principles
@@ -178,7 +178,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 ### 5. transactions
 
-This is the Fact Table containing 20,219 records.
+This is the Fact Table containing 22,194 records.
 
 #### Category selection logic
 
@@ -233,7 +233,7 @@ duty_free_data/
 ├── product_master.csv       (108 rows)
 ├── flight_schedules.csv     (5,720 rows)
 ├── holiday_events.csv       (6 rows)
-└── transaction.csv          (20,219 rows)
+└── transaction.csv          (22,194 rows)
 
 duty_free.db                  ← SQLite for immediate SQL practice
 ```
