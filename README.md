@@ -14,11 +14,11 @@ Designed to practise SQL analytics, data modelling, and Tableau visualisation �
 
 | Item | Detail |
 |---|---|
-| **Setting** | Sydney International Airport — Terminal 1 duty-free gift shop |
-| **Period** | 1 January 2024 – 30 June 2024 (26 weeks) |
-| **Tables** | 6 |
-| **Total records** | ~20,000+ rows |
-| **Output** | 6 CSV files + 1 SQLite database |
+| **Setting** | Sydney Int'l Airport (T1) Duty-Free Gift Shop — Retail Transaction Data |
+| **Period** | 1 January 2024 – 31 December 2024 (52 weeks) |
+| **Tables** | 5 |
+| **Total records** | 20,219 Transactions |
+| **Output** | 5 CSV files + 1 SQLite database |
 | **Reproducibility** | `random.seed(42)` fixed |
 
 ---
@@ -53,26 +53,24 @@ The goal was to make the synthetic data as realistic as possible, so that any an
 ## 🗂️ Table Structure
 
 ```
-Customer_Profiles ──┐
-                    ├──▶ Sales_Transactions ◀──── Product_Inventory
-Flight_Schedules ───┘            │                      │
-                          Holiday_Events        Transaction_Items
+customer_detila ──┐
+                    ├──▶ transactions ◀──── product_master
+flight_schedules ───┘         │                     
+                        holiday_events       
 ```
 
 | Table | Rows | Primary Key | Description |
 |---|---|---|---|
-| Customer_Profiles | 4,000 | Customer_ID | Passenger demographics & membership |
-| Product_Inventory | 108 | Product_SKU | 108 SKUs across 9 categories |
-| Flight_Schedules | 2,860 | Flight_No + Departure_Time | 26-week departure schedule |
-| Holiday_Events | 3 | Event_ID | Jan–Apr holiday event calendar |
-| Sales_Transactions | 5,000 | Trans_ID | Transaction header (customer, flight, payment) |
-| Transaction_Items | 9,365 | Trans_ID + Line_No | Transaction lines (SKU, qty, price per item) |
-
+| customer_details | 8,000 | customer_id | Passenger demographics |
+| product_master | 108 | product_sku | 108 SKUs across 9 categories |
+| flight_schedules | 5,720 | flight_no + departure_time | 52-week departure schedule |
+| holiday_events | 6 | event_id | Jan–Dec holiday event calendar |
+| transactions | 20,219 | tx_id | All transactions details|
 ---
 
 ## 📐 Design Principles
 
-### 1. Customer_Profiles
+### 1. customer_details
 
 - **12 nationalities** weighted by duty-free purchase likelihood (not raw airport traffic)
   - CN 20% · AU 12% · US 10% · GB 9% · KR 9% · IN 8% · JP 7% · NZ 8% · others
@@ -84,9 +82,16 @@ Flight_Schedules ───┘            │                      │
 - **Membership tiers**: Non-Member 55% · Silver 25% · Gold 13% · Diamond 7%
 - `Preferred_Category` assigned using nationality-based weighted probability (see `PREF_MAP`)
 
+| Column | Description | 
+|---|---|
+| `customer_id` | Unique identifier (C-0001 to C-8000) |
+| `nationality` | Passenger's country of origin |
+| `age_group` | Passenger's age group ("Under 20", "20s", "30s", "40s", "50s", "60+")|
+
+
 ---
 
-### 2. Product_Inventory (108 SKUs)
+### 2. product_master (108 SKUs)
 
 All categories use **variant-based SKU generation** — every SKU row corresponds to a specific variant tuple `(Item, Variant, Price)`. No random duplicate SKUs.
 
@@ -102,15 +107,28 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 | Indigenous | Aboriginal Art Print (A4/A3/Framed), Boomerang (S/L), Hand Cream (50ml/100ml), Lip Balm (Single/3-Pack), Kitchenware (Coaster/Cutting Board) | $9–110 | 30% | 11 |
 | Tea | T2 Tea (Small Tin/Large Tin/Gift Set) | $22–62 | 40% | 3 |
 
-- **Highest margin** categories: Indigenous (70%) · Souvenir (65%)
-- **Lowest margin** categories: Liquor (45%) · Confectionery (50%)
+- The product_master table serves as the primary dimension table for all transaction analysis.
+
+| Column | Description |
+|---|---|
+| product_sku | Unique identifier (SKU-001 to SKU-108) |
+| category | Product category (9 distinct groups) |
+| item | The base product name |
+| variant | Specific attribute (e.g., "500g", "Gold", "Single Malt") |
+| selling_price | Retail price in AUD | 
+| cost_price | Wholesale cost based on category-specific margin ratios |
 
 ---
 
-### 3. Flight_Schedules
+### 3. flight_schedules
 
 - **Fixed real-world flight numbers** (e.g. CX101, KE601) — same flight repeats on the same weekday every week
 - **Fixed operating weekdays** per route (0 = Mon … 6 = Sun)
+- ** Operational Status & Sales Correlation**:
+  - On Time (85%): Standard departure flow.
+  - Delayed (13%): Simulates increased Dwell Time in the departure lounge, which statistically correlates with a potential boost in spontaneous duty-free sales (e.g., Confectionery, Tea).
+  - Cancelled (2%): Transactions are filtered out for these flights to maintain data integrity.
+- **±5 min random delay** applied to each departure for realism
 
 | Route group | Departure window | Example flights |
 |---|---|---|
@@ -120,53 +138,47 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 | Middle East | 20:45–21:10 | EK413 (Dubai) · QR007 (Doha) |
 | Los Angeles | 11:55–21:00 | QF7, UA839 |
 
-- **±5 min random delay** applied to each departure for realism
-- Terminal gate fixed to **T1** (T1-01 through T1-55)
-
----
-
-### 4. Holiday_Events
-
-- **3 events, January–April** — only holidays that meaningfully affect international travel volumes
-- **No price discounts** — the shop does not run formal promotions; purchase patterns shift naturally
-
-| Event | Period | Category Boost | Nationality Boost |
-|---|---|---|---|
-| New Year Kickoff | Jan 1–7 | Souvenir +20 | — |
-| Lunar New Year | Feb 8–18 | Honey +30 | CN 20%→38% · KR 9%→14% |
-| Easter Long Weekend | Mar 29–Apr 1 | Confectionery +20 | AU 12%→35% · GB 9%→14% |
-
-#### How holiday boosts work
-
-```
-Normal period:
-  Category selected by PREF_MAP nationality weights (70%) + destination group (30%)
-
-Holiday period — two effects:
-  ① Category boost   : Boost_Weight added on top of PREF_MAP for target category
-                       e.g. Lunar New Year: Honey weight for CN 30 → 60
-  ② Nationality boost: visitor mix shifts toward boosted nationalities
-                       e.g. Lunar New Year: CN share rises from 20% → 38%
-```
+- The flight_schedules table provides the necessary context to analyse sales trends by airline, destination, and time of day.
 
 | Column | Description |
 |---|---|
-| `Event_ID` | Unique identifier (E-01 … E-03) |
-| `Event_Name` | Holiday name |
-| `Start_Date / End_Date` | Holiday window |
-| `Target_Category` | Category with elevated purchase probability |
-| `Boost_Weight` | Extra weight added to target category |
-| `Nat_Boost` | Nationalities with elevated visit share e.g. `"CN,KR"` (NULL if none) |
-| `Nat_Weight` | Adjusted weights during window e.g. `"0.38,0.14"` (NULL if none) |
+| flight_no | Unique flight identifier (e.g., QF001, KE402) |
+| airline | Operating carrier (Full service and budget carriers) |
+| destination | Departure destination (Used for DEST_MAP preference logic) |
+| departure_time | Scheduled departure (including ±5 min random variance) | 
+| flight_status | Real-time status (On Time, Delayed, Cancelled) |
 
 ---
 
-### 5. Sales_Transactions
+### 4. holiday_events
 
-#### Transaction time linkage
+- **6 events, January–December** — only holidays that meaningfully affect international travel volumes to simulate how international travel and purchasing behaviors shift during major holidays at Sydney T1.
+- **No price discounts** — the shop does not run formal promotions; purchase patterns shift naturally
 
-- Purchase time = **30–180 minutes before departure** of the linked flight
-- Transactions outside operating hours (before 06:00 or after 23:00) are discarded and regenerated
+| Event ID| Event | Period | Category Boost | Nationality Boost |
+|---|---|---|---|---|
+| E-01 | New Year Kickoff | Jan 1 – 7 | Confectionery | - |
+| E-02 | Lunar New Year | Feb 8 – 18 | Honey | CN 38% · KR 14% |
+| E-03 | Easter Long Weekend | Mar 29 – Apr 1 | Confectionery | AU 35% · GB 14% |
+| E-04 | Chuseok | Sep 13 – 19 | Souvenir | KR 18% |
+| E-05 | Mid-Autumn Festival | Sep 14 – 18 | Honey | CN 35% |
+| E-06 | Christmas & New Year | Dec 22 – 31 | Souvenir | - |
+
+- The function **generate_holiday_events()** produces a schema focused on public event information for analysis:
+
+| Column | Description |
+|---|---|
+| `event_id` | Unique identifier (E-01 to E-06) |
+| `event_name` | Holiday name |
+| `start_date` | Event start date (YYYY-MM-DD)|
+| `end_date` | Event end date (YYYY-MM-DD) |
+
+
+---
+
+### 5. transactions
+
+This is the Fact Table containing 20,219 records.
 
 #### Category selection logic
 
@@ -179,18 +191,12 @@ PREF_MAP weights intentionally sum to less than 100 per nationality — the rema
 
 | Nationality | Strong preferences | Note |
 |---|---|---|
-| AU | Confectionery · Liquor · Cosmetics · Souvenir | Lower conversion; interstate travellers buy Souvenir |
+| AU | Confectionery · Liquor · Cosmetics · Souvenir | Lower conversion; local residents buy staples domestically. |
 | CN | Honey · Cosmetics · Souvenir · Liquor | Gift-buying culture |
 | KR | Cosmetics · Honey · Confectionery | Occasional wine buyer |
-| US / GB / CA | Apparel · Indigenous · Souvenir | Liquor not a dominant duty-free driver |
-| JP | Confectionery · Souvenir · Tea | Honey restricted by JP customs |
+| US / GB / CA | Apparel · Indigenous · Souvenir | Higher interest in authentic Australian crafts/merchandise. |
+| JP / NZ | Confectionery, Souvenir, Tea | High volume from School Trip |
 | NZ | Souvenir · Confectionery · Tea | Honey very low — MPI biosecurity |
-
-| Destination group | Category bias |
-|---|---|
-| Northeast Asia | Cosmetics · Honey · Confectionery · Tea |
-| Southeast Asia | Souvenir · Confectionery · Cosmetics · Tea |
-| Long-haul (Dubai · Doha · LA) | Liquor · Apparel · Jewellery · Indigenous |
 
 #### Item-level promotions (year-round)
 
@@ -202,58 +208,13 @@ PREF_MAP weights intentionally sum to less than 100 per nationality — the rema
 
 #### Payment method by nationality
 
-| Nationality | Dominant method | Notes |
+| Nationality | Dominant method | Note |
 |---|---|---|
-| AU / NZ / CA | Credit/Debit Card · Digital Wallet | Minimal cash |
-| CN | AliPay · WeChat Pay | Cash also common (older travellers) |
-| KR | Credit/Debit Card · Digital Wallet | AliPay ~0.1% (1 in 1,000) |
-| JP | Cash · Digital Wallet | Cash culture still strong |
-| GB / US | Credit/Debit Card | Low cash, growing digital wallet |
-| IN / PH | Cash · Credit/Debit Card | Higher cash usage |
-
-### Sales_Transactions columns (header)
-
-| Column | Description |
-|---|---|
-| `Trans_ID` | Unique transaction identifier |
-| `Date_Time` | Purchase timestamp |
-| `Customer_ID` | FK → Customer_Profiles |
-| `Flight_No` | FK → Flight_Schedules |
-| `Destination` | Flight destination |
-| `Event_ID` | Holiday event if active (else NULL) |
-| `Event_Name` | Holiday event name for easy SQL filtering (else NULL) |
-| `Item_Count` | Number of line items in this transaction |
-| `Total_Amount` | Sum of all line amounts |
-| `Total_Cost` | Sum of all line costs |
-| `Gross_Profit` | Total_Amount − Total_Cost |
-| `Payment_Method` | Payment method used |
-
-#### Transaction_Items columns (lines)
-
-| Column | Description |
-|---|---|
-| `Trans_ID` | FK → Sales_Transactions |
-| `Line_No` | Line number within transaction (1, 2, 3…) |
-| `Product_SKU` | FK → Product_Inventory |
-| `Category` | Product category |
-| `Quantity` | Units purchased (includes free items for BUY_X_GET_Y) |
-| `Unit_Price` | Product retail price |
-| `Line_Amount` | Actual charged amount for this line |
-| `Line_Cost` | Cost of goods for this line |
-| `Gross_Profit` | Line_Amount − Line_Cost |
-| `Promo_ID` | Item-level promo if triggered (IP-01 to IP-03, else NULL) |
-
----
-
-## 📊 Analytics Use Cases (Killer Insights)
-
-| # | Question | Key columns | SQL techniques |
-|---|---|---|---|
-| 1 | **What is the golden hour by flight route?** | `Date_Time`, `Flight_No`, `Departure_Time`, `Total_Amount` | JOIN + DATEDIFF + WINDOW FUNCTION |
-| 2 | **Do holidays shift purchase patterns?** | `Event_Name`, `Category`, `Nationality`, `Total_Amount` | CASE WHEN + GROUP BY + ratio comparison |
-| 3 | **Who are the true VIP customers?** | `Nationality`, `Membership_Level`, `Total_Amount` | RANK() + ATV calculation |
-| 4 | **Which category drives margin?** | `Category`, `Gross_Profit`, `Total_Amount` | GROUP BY + margin rate |
-| 5 | **Do item promotions increase units sold?** | `Promo_ID`, `Quantity`, `Total_Amount`, `Gross_Profit` | GROUP BY + avg qty comparison |
+| AU / NZ / CA / GB / US / SG | Credit/Debit Card · Digital Wallet | - |
+| CN | Digital Wallet · AliPay | Cash also common |
+| KR | Credit/Debit Card | AliPay ~0.1% (1 in 1,000) |
+| JP | Digital Wallet · Cash | Cash culture still strong |
+| IN / PH / TH | Digital Wallet · Cash · Credit/Debit Card | Higher cash usage |
 
 ---
 
@@ -268,12 +229,11 @@ python generate_duty_free_data.py
 
 # 3. Output
 duty_free_data/
-├── Customer_Profiles.csv     (4,000 rows)
-├── Product_Inventory.csv     (108 rows)
-├── Flight_Schedules.csv      (2,860 rows)
-├── Holiday_Events.csv        (3 rows)
-├── Sales_Transactions.csv    (5,000 rows)
-└── Transaction_Items.csv     (9,365 rows)
+├── customer_details.csv     (8,000 rows)
+├── product_master.csv       (108 rows)
+├── flight_schedules.csv     (5,720 rows)
+├── holiday_events.csv       (6 rows)
+└── transaction.csv          (20,219 rows)
 
 duty_free.db                  ← SQLite for immediate SQL practice
 ```
