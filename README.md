@@ -17,7 +17,7 @@ Designed to practise SQL analytics, data modelling, and Tableau visualisation �
 | **Setting** | Sydney Int'l Airport (T1) Duty-Free Gift Shop — Retail Transaction Data |
 | **Period** | 1 January 2024 – 31 December 2024 (52 weeks) |
 | **Tables** | 5 |
-| **Total records** | 22,153 Transactions |
+| **Total records** | 22,105 Transactions |
 | **Output** | 5 CSV files + 1 SQLite database |
 | **Reproducibility** | `random.seed(42)` fixed |
 
@@ -43,7 +43,7 @@ The goal was to make the synthetic data as realistic as possible, so that any an
 | **Remainder category distribution** | PREF_MAP weights intentionally sum to <100 — remainder distributed evenly so every category has some background purchase probability | Reflects reality that customers occasionally buy outside their main preference |
 | **Flight schedule patterns** | Fixed flight numbers (CX101, KE601), fixed weekday patterns, realistic departure windows per route | Familiar with T1 departure board and peak hours |
 | **Transaction timing** | Purchases generated 30–180 min before departure — reflects actual pre-flight shopping window | Observed traffic spikes before gate calls |
-| **Holiday event design** | No formal price promotions — holiday periods shift purchase patterns and visitor mix naturally (Lunar New Year → CN/KR surge + Honey boost, Easter → AU/GB surge + Confectionery boost) | Directly observed on shop floor during peak periods |
+| **Holiday event design** | No formal price promotions — holiday periods shift purchase patterns and visitor mix naturally (Lunar New Year → CN/KR surge + Honey, Souvenir, Confectionery boost, Easter → AU/GB surge + Confectionery boost) | Directly observed on shop floor during peak periods |
 | **Item-level promotions** | Paw Paw Buy 5 Get 6th Free (G Paw Paw free - cheaper one free) · Comvita UMF 5+ Buy 3 Get 4th Free · Tim Tam any 4 for $24 | Modelled on actual in-store deals |
 | **Payment methods** | Credit/Debit Card · Cash · AliPay · WeChat Pay · Digital Wallet — CN uses AliPay/WeChat; KR uses AliPay ~0.1% only; JP cash still high | Observed at POS daily |
 
@@ -63,9 +63,9 @@ flight_schedules ───┘         │
 |---|---|---|---|
 | customer_details | 8,000 | customer_id | Passenger demographics |
 | product_master | 108 | product_sku | 108 SKUs across 9 categories |
-| flight_schedules | 5,720 | flight_no + departure_time | 52-week departure schedule |
+| flight_schedules | 5,876 | flight_no + departure_time | 52-week departure schedule |
 | holiday_events | 6 | event_id | Jan–Dec holiday event calendar |
-| transactions | 22,153 | tx_id | All transactions details|
+| transactions | 22,105 | tx_id | All transactions details|
 ---
 
 ## 📐 Design Principles
@@ -177,7 +177,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 ### 5. transactions
 
-This is the Fact Table containing 22,153 records.
+This is the Fact Table containing 22,105 records.
 
 #### Category selection logic
 
@@ -230,9 +230,9 @@ python generate_duty_free_data.py
 duty_free_data/
 ├── customer_details.csv     (8,000 rows)
 ├── product_master.csv       (108 rows)
-├── flight_schedules.csv     (5,720 rows)
+├── flight_schedules.csv     (5,876 rows)
 ├── holiday_events.csv       (6 rows)
-└── transaction.csv          (22,153 rows)
+└── transaction.csv          (22,105 rows)
 
 duty_free.db                  ← SQLite for immediate SQL practice
 ```
