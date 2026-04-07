@@ -124,7 +124,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 - **Fixed real-world flight numbers** (e.g. CX101, KE601) — same flight repeats on the same weekday every week
 - **Fixed operating weekdays** per route (0 = Mon … 6 = Sun)
-- ** Operational Status & Sales Correlation**:
+- **Operational Status & Sales Correlation**:
   - On Time (85%): Standard departure flow.
   - Delayed (13%): Simulates increased Dwell Time in the departure lounge, which statistically correlates with a potential boost in spontaneous duty-free sales (e.g., Confectionery, Tea).
   - Cancelled (2%): Transactions are filtered out for these flights to maintain data integrity.
