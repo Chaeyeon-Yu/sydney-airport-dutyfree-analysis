@@ -53,7 +53,7 @@ The goal was to make the synthetic data as realistic as possible, so that any an
 ## 🗂️ Table Structure
 
 ```
-customer_detila ──┐
+customer_details ──┐
                     ├──▶ transactions ◀──── product_master
 flight_schedules ───┘         │                     
                         holiday_events       
