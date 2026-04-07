@@ -167,11 +167,6 @@ ORDER BY
 
 -- =========================================================================================================================
 -- 1) Impact of Seasonal Holidays on Purchase Patterns
-
-/* Q1. How do holidays shift the demographic composition?
- *  
- * Q2. Which nationalities drive the revenue surge?
- */
 -- =========================================================================================================================
 
 DROP VIEW IF EXISTS holiday_stats;
@@ -179,10 +174,13 @@ DROP VIEW IF EXISTS holiday_stats;
 CREATE VIEW holiday_stats AS 
 	SELECT 
 		COALESCE(h.event_name, 'Normal') AS period_type,
-		c.nationality,
+		-- demographic columns
+		c.nationality,		
+		c.age_group,
+		-- product columns
 		p.category,
 		p.item,
-		sum(t.net_amount) AS category_total_sales,
+		sum(t.net_amount) AS item_total_sales, 	-- total sales per item for each demographic group
 		sum(t.qty) AS total_qty,
 		count(*) AS tx_count
 	FROM transactions t 
@@ -191,12 +189,96 @@ CREATE VIEW holiday_stats AS
 		 INNER JOIN product_master p ON t.product_sku = p.product_sku
 	GROUP BY 
 		period_type,
+		nationality,
+		age_group,
 		category,
 		item;
 
 SELECT * FROM holiday_stats;
 
+
+-- Q1. [Demographic Shift] How do holidays shift the demographic composition?
+-- 		period_type, nationlaity, age_group, category_sales, nationality_share
 	
+WITH nat_sales AS (	
+	SELECT 
+		period_type,
+		sum(item_total_sales) AS total_sales_period 	-- total sales for specific period
+	FROM 
+		holiday_stats
+	GROUP BY 
+		period_type
+) 
+SELECT
+	ns.period_type,
+	hs.nationality,
+	hs.age_group,
+	sum(hs.item_total_sales) AS total_sales_de,	-- total sales for each demographic group for specific period
+	round(sum(hs.item_total_sales) * 100.0 / ns.total_sales_period, 2) AS nationality_share		-- the share (%) within that specific period
+FROM 
+	nat_sales ns
+	JOIN holiday_stats hs ON hs.period_type = ns.period_type
+GROUP BY
+	ns.period_type,
+	hs.nationality,
+	hs.age_group
+ORDER BY 
+	ns.period_type,
+	nationality_share DESC;
+
+
+-- Q2. [Revenue Drivers] Which nationality and product category combinations lead the holiday revenue peaks?
+
+
+
+
+
+
+-- [UNION ALL PRACTICE] Performance Segmentation by Category
+-- Identify which product categories are performing above or below the average 
+-- and provide a high-level strategic recommendation for each.
+
+WITH avg_sales AS (
+	SELECT
+		p.category,
+		avg(net_amount) AS avg_total_sales 		-- Average Total Sales per Category
+	FROM 
+		transactions t
+		JOIN product_master p ON t.product_sku = p.product_sku
+	GROUP BY
+		p.category
+), 
+global_avg_sales AS (
+	SELECT
+		avg(avg_total_sales) AS global_avg_sales
+	FROM avg_sales
+)
+-- 1) High-Performer: Maintain current strategy
+SELECT
+	a.category,
+	a.avg_total_sales,
+	'High-Performer' AS status,
+	'Maintain Current Strategy' AS recommendation
+FROM 
+	-- Cross-joining with global_avg_sales (1-row CTE)  
+	-- to allow comparison without a specific JOIN key.
+	avg_sales a, global_avg_sales g				
+WHERE 
+	a.avg_total_sales >= g.global_avg_sales
+UNION ALL
+-- 2) Low-Performer: Immediate Action Required
+SELECT
+	a.category,
+	a.avg_total_sales,
+	'Low-Performer' AS status,
+	'Immediate Action Required' AS recommendation
+FROM 
+	avg_sales a, global_avg_sales g
+WHERE 
+	a.avg_total_sales < g.global_avg_sales;
+	
+
+
 
 
 -- =========================================================================================================================
