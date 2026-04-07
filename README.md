@@ -17,7 +17,7 @@ Designed to practise SQL analytics, data modelling, and Tableau visualisation �
 | **Setting** | Sydney Int'l Airport (T1) Duty-Free Gift Shop — Retail Transaction Data |
 | **Period** | 1 January 2024 – 31 December 2024 (52 weeks) |
 | **Tables** | 5 |
-| **Total records** | 22,194 Transactions |
+| **Total records** | 22,153 Transactions |
 | **Output** | 5 CSV files + 1 SQLite database |
 | **Reproducibility** | `random.seed(42)` fixed |
 
@@ -53,7 +53,7 @@ The goal was to make the synthetic data as realistic as possible, so that any an
 ## 🗂️ Table Structure
 
 ```
-customer_detila ──┐
+customer_details ──┐
                     ├──▶ transactions ◀──── product_master
 flight_schedules ───┘         │                     
                         holiday_events       
@@ -65,7 +65,7 @@ flight_schedules ───┘         │
 | product_master | 108 | product_sku | 108 SKUs across 9 categories |
 | flight_schedules | 5,720 | flight_no + departure_time | 52-week departure schedule |
 | holiday_events | 6 | event_id | Jan–Dec holiday event calendar |
-| transactions | 22,194 | tx_id | All transactions details|
+| transactions | 22,153 | tx_id | All transactions details|
 ---
 
 ## 📐 Design Principles
@@ -78,8 +78,7 @@ flight_schedules ───┘         │
     - Most AU residents buy the same products locally — low duty-free conversion
     - Accounts for naturalised AU citizens travelling to their hometown (higher purchase rate)
   - NZ weight kept low — MPI biosecurity restricts AU honey imports; NZ residents buy locally
-- **4,000 customers** → average 1.25 transactions per customer
-- **Membership tiers**: Non-Member 55% · Silver 25% · Gold 13% · Diamond 7%
+- **8,000 customers** → average 1.25 transactions per customer
 - `Preferred_Category` assigned using nationality-based weighted probability (see `PREF_MAP`)
 
 | Column | Description | 
@@ -97,15 +96,15 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 | Category | Key Items & Variants | Price Range (AUD) | Cost Ratio | SKUs |
 |---|---|---|---|---|
-| Cosmetics | Lanolin Cream (A/B brand, single/6-pack), Sheep Placenta Cream, Emu Oil Cream, Paw Paw Ointment (Lucas/Gronk), Wild Fern Skincare (Lip Balm/Hand Cream/Face Cream/Face Mask/Gift Set) | $8–42 | 40% | 16 |
-| Liquor | Penfolds Wine (Max's/Bin 28/Bin 407/Bin 389/Grange), Johnnie Walker (Red/Black/Gold), Hennessy (VS/VSOP/XO), Absolut Vodka, Tanqueray Gin | $30–999 | 55% | 17 |
-| Jewellery | Opal (Earrings/Necklace/Pendant/Premium), Paua Shell (Earrings/Pendant/Bracelet/Ring), Jade (Pendant S/L, Bracelet/Ring) | $38–520 | 40% | 12 |
-| Souvenir | SYD Keychain (Metal/Acrylic), SYD Mug (S/L), AUS Magnet (Single/3-Pack), Kangaroo Plush (S/L), Koala Plush (S/L), AUS Tea Towel | $9–45 | 35% | 11 |
-| Confectionery | Cadbury (3 SKUs), Tim Tam (7 flavours), Patons (3 SKUs), Lindt (3 SKUs), Macadamia Nuts (3 SKUs), Kangaroo Jerky (50g/100g) | $7–36 | 50% | 21 |
-| Apparel | AUS T-Shirt (Kids/Adult), AUS Hoodie (Standard/Premium), Ugg Boots (Short/Tall), Ugg Slipper, AUS Cap (Standard/Premium) | $22–180 | 40% | 9 |
-| Honey | Comvita UMF 5+/10+/15+/20+, Manuka Health MGO 263+/400+, Beepower MGO 115+/263+ | $35–170 | 45% | 8 |
-| Indigenous | Aboriginal Art Print (A4/A3/Framed), Boomerang (S/L), Hand Cream (50ml/100ml), Lip Balm (Single/3-Pack), Kitchenware (Coaster/Cutting Board) | $9–110 | 30% | 11 |
-| Tea | T2 Tea (Small Tin/Large Tin/Gift Set) | $22–62 | 40% | 3 |
+| Cosmetics | Lanolin Cream (A/B brand, single/6-pack), Sheep Placenta Cream, Emu Oil Cream, Paw Paw Ointment (Lucas/Gronk), Wild Fern Skincare (Lip Balm/Hand Cream/Face Cream/Face Mask/Gift Set) | $8–42 | 45% | 16 |
+| Liquor | Penfolds Wine (Max's/Bin 28/Bin 407/Bin 389/Grange), Johnnie Walker (Red/Black/Gold), Hennessy (VS/VSOP/XO), Absolut Vodka, Tanqueray Gin | $30–999 | 65% | 17 |
+| Jewellery | Opal (Earrings/Necklace/Pendant/Premium), Paua Shell (Earrings/Pendant/Bracelet/Ring), Jade (Pendant S/L, Bracelet/Ring) | $38–520 | 60% | 12 |
+| Souvenir | SYD Keychain (Metal/Acrylic), SYD Mug (S/L), AUS Magnet (Single/3-Pack), Kangaroo Plush (S/L), Koala Plush (S/L), AUS Tea Towel | $9–45 | 45% | 11 |
+| Confectionery | Cadbury (3 SKUs), Tim Tam (7 flavours), Patons (3 SKUs), Lindt (3 SKUs), Macadamia Nuts (3 SKUs), Kangaroo Jerky (50g/100g) | $7–36 | 55% | 21 |
+| Apparel | AUS T-Shirt (Kids/Adult), AUS Hoodie (Standard/Premium), Ugg Boots (Short/Tall), Ugg Slipper, AUS Cap (Standard/Premium) | $22–180 | 50% | 9 |
+| Honey | Comvita UMF 5+/10+/15+/20+, Manuka Health MGO 263+/400+, Beepower MGO 115+/263+ | $35–170 | 60% | 8 |
+| Indigenous | Aboriginal Art Print (A4/A3/Framed), Boomerang (S/L), Hand Cream (50ml/100ml), Lip Balm (Single/3-Pack), Kitchenware (Coaster/Cutting Board) | $9–110 | 50% | 11 |
+| Tea | T2 Tea (Small Tin/Large Tin/Gift Set) | $22–62 | 50% | 3 |
 
 - The product_master table serves as the primary dimension table for all transaction analysis.
 
@@ -124,7 +123,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 - **Fixed real-world flight numbers** (e.g. CX101, KE601) — same flight repeats on the same weekday every week
 - **Fixed operating weekdays** per route (0 = Mon … 6 = Sun)
-- ** Operational Status & Sales Correlation**:
+- **Operational Status & Sales Correlation**:
   - On Time (85%): Standard departure flow.
   - Delayed (13%): Simulates increased Dwell Time in the departure lounge, which statistically correlates with a potential boost in spontaneous duty-free sales (e.g., Confectionery, Tea).
   - Cancelled (2%): Transactions are filtered out for these flights to maintain data integrity.
@@ -158,7 +157,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 | Event ID| Event | Period | Category Boost | Nationality Boost |
 |---|---|---|---|---|
 | E-01 | New Year Kickoff | Jan 1 – 7 | Confectionery | - |
-| E-02 | Lunar New Year | Feb 8 – 18 | Honey | CN 38% · KR 14% |
+| E-02 | Lunar New Year | Feb 8 – 18 | Honey, Souvenir, Confectionery | CN 38% · KR 14% |
 | E-03 | Easter Long Weekend | Mar 29 – Apr 1 | Confectionery | AU 35% · GB 14% |
 | E-04 | Chuseok | Sep 13 – 19 | Souvenir | KR 18% |
 | E-05 | Mid-Autumn Festival | Sep 14 – 18 | Honey | CN 35% |
@@ -178,7 +177,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 ### 5. transactions
 
-This is the Fact Table containing 22,194 records.
+This is the Fact Table containing 22,153 records.
 
 #### Category selection logic
 
@@ -233,7 +232,7 @@ duty_free_data/
 ├── product_master.csv       (108 rows)
 ├── flight_schedules.csv     (5,720 rows)
 ├── holiday_events.csv       (6 rows)
-└── transaction.csv          (22,194 rows)
+└── transaction.csv          (22,153 rows)
 
 duty_free.db                  ← SQLite for immediate SQL practice
 ```
