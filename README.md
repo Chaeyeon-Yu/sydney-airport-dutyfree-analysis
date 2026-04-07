@@ -97,15 +97,15 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 | Category | Key Items & Variants | Price Range (AUD) | Cost Ratio | SKUs |
 |---|---|---|---|---|
-| Cosmetics | Lanolin Cream (A/B brand, single/6-pack), Sheep Placenta Cream, Emu Oil Cream, Paw Paw Ointment (Lucas/Gronk), Wild Fern Skincare (Lip Balm/Hand Cream/Face Cream/Face Mask/Gift Set) | $8–42 | 40% | 16 |
-| Liquor | Penfolds Wine (Max's/Bin 28/Bin 407/Bin 389/Grange), Johnnie Walker (Red/Black/Gold), Hennessy (VS/VSOP/XO), Absolut Vodka, Tanqueray Gin | $30–999 | 55% | 17 |
-| Jewellery | Opal (Earrings/Necklace/Pendant/Premium), Paua Shell (Earrings/Pendant/Bracelet/Ring), Jade (Pendant S/L, Bracelet/Ring) | $38–520 | 40% | 12 |
-| Souvenir | SYD Keychain (Metal/Acrylic), SYD Mug (S/L), AUS Magnet (Single/3-Pack), Kangaroo Plush (S/L), Koala Plush (S/L), AUS Tea Towel | $9–45 | 35% | 11 |
-| Confectionery | Cadbury (3 SKUs), Tim Tam (7 flavours), Patons (3 SKUs), Lindt (3 SKUs), Macadamia Nuts (3 SKUs), Kangaroo Jerky (50g/100g) | $7–36 | 50% | 21 |
-| Apparel | AUS T-Shirt (Kids/Adult), AUS Hoodie (Standard/Premium), Ugg Boots (Short/Tall), Ugg Slipper, AUS Cap (Standard/Premium) | $22–180 | 40% | 9 |
-| Honey | Comvita UMF 5+/10+/15+/20+, Manuka Health MGO 263+/400+, Beepower MGO 115+/263+ | $35–170 | 45% | 8 |
-| Indigenous | Aboriginal Art Print (A4/A3/Framed), Boomerang (S/L), Hand Cream (50ml/100ml), Lip Balm (Single/3-Pack), Kitchenware (Coaster/Cutting Board) | $9–110 | 30% | 11 |
-| Tea | T2 Tea (Small Tin/Large Tin/Gift Set) | $22–62 | 40% | 3 |
+| Cosmetics | Lanolin Cream (A/B brand, single/6-pack), Sheep Placenta Cream, Emu Oil Cream, Paw Paw Ointment (Lucas/Gronk), Wild Fern Skincare (Lip Balm/Hand Cream/Face Cream/Face Mask/Gift Set) | $8–42 | 45% | 16 |
+| Liquor | Penfolds Wine (Max's/Bin 28/Bin 407/Bin 389/Grange), Johnnie Walker (Red/Black/Gold), Hennessy (VS/VSOP/XO), Absolut Vodka, Tanqueray Gin | $30–999 | 65% | 17 |
+| Jewellery | Opal (Earrings/Necklace/Pendant/Premium), Paua Shell (Earrings/Pendant/Bracelet/Ring), Jade (Pendant S/L, Bracelet/Ring) | $38–520 | 60% | 12 |
+| Souvenir | SYD Keychain (Metal/Acrylic), SYD Mug (S/L), AUS Magnet (Single/3-Pack), Kangaroo Plush (S/L), Koala Plush (S/L), AUS Tea Towel | $9–45 | 45% | 11 |
+| Confectionery | Cadbury (3 SKUs), Tim Tam (7 flavours), Patons (3 SKUs), Lindt (3 SKUs), Macadamia Nuts (3 SKUs), Kangaroo Jerky (50g/100g) | $7–36 | 55% | 21 |
+| Apparel | AUS T-Shirt (Kids/Adult), AUS Hoodie (Standard/Premium), Ugg Boots (Short/Tall), Ugg Slipper, AUS Cap (Standard/Premium) | $22–180 | 50% | 9 |
+| Honey | Comvita UMF 5+/10+/15+/20+, Manuka Health MGO 263+/400+, Beepower MGO 115+/263+ | $35–170 | 60% | 8 |
+| Indigenous | Aboriginal Art Print (A4/A3/Framed), Boomerang (S/L), Hand Cream (50ml/100ml), Lip Balm (Single/3-Pack), Kitchenware (Coaster/Cutting Board) | $9–110 | 50% | 11 |
+| Tea | T2 Tea (Small Tin/Large Tin/Gift Set) | $22–62 | 50% | 3 |
 
 - The product_master table serves as the primary dimension table for all transaction analysis.
 
