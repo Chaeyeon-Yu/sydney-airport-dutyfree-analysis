@@ -17,7 +17,7 @@ Designed to practise SQL analytics, data modelling, and Tableau visualisation �
 | **Setting** | Sydney Int'l Airport (T1) Duty-Free Gift Shop — Retail Transaction Data |
 | **Period** | 1 January 2024 – 31 December 2024 (52 weeks) |
 | **Tables** | 5 |
-| **Total records** | 22,194 Transactions |
+| **Total records** | 22,153 Transactions |
 | **Output** | 5 CSV files + 1 SQLite database |
 | **Reproducibility** | `random.seed(42)` fixed |
 
@@ -65,7 +65,7 @@ flight_schedules ───┘         │
 | product_master | 108 | product_sku | 108 SKUs across 9 categories |
 | flight_schedules | 5,720 | flight_no + departure_time | 52-week departure schedule |
 | holiday_events | 6 | event_id | Jan–Dec holiday event calendar |
-| transactions | 22,194 | tx_id | All transactions details|
+| transactions | 22,153 | tx_id | All transactions details|
 ---
 
 ## 📐 Design Principles
@@ -78,8 +78,7 @@ flight_schedules ───┘         │
     - Most AU residents buy the same products locally — low duty-free conversion
     - Accounts for naturalised AU citizens travelling to their hometown (higher purchase rate)
   - NZ weight kept low — MPI biosecurity restricts AU honey imports; NZ residents buy locally
-- **4,000 customers** → average 1.25 transactions per customer
-- **Membership tiers**: Non-Member 55% · Silver 25% · Gold 13% · Diamond 7%
+- **8,000 customers** → average 1.25 transactions per customer
 - `Preferred_Category` assigned using nationality-based weighted probability (see `PREF_MAP`)
 
 | Column | Description | 
@@ -158,7 +157,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 | Event ID| Event | Period | Category Boost | Nationality Boost |
 |---|---|---|---|---|
 | E-01 | New Year Kickoff | Jan 1 – 7 | Confectionery | - |
-| E-02 | Lunar New Year | Feb 8 – 18 | Honey | CN 38% · KR 14% |
+| E-02 | Lunar New Year | Feb 8 – 18 | Honey, Souvenir, Confectionery | CN 38% · KR 14% |
 | E-03 | Easter Long Weekend | Mar 29 – Apr 1 | Confectionery | AU 35% · GB 14% |
 | E-04 | Chuseok | Sep 13 – 19 | Souvenir | KR 18% |
 | E-05 | Mid-Autumn Festival | Sep 14 – 18 | Honey | CN 35% |
@@ -178,7 +177,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 
 ### 5. transactions
 
-This is the Fact Table containing 22,194 records.
+This is the Fact Table containing 22,153 records.
 
 #### Category selection logic
 
@@ -233,7 +232,7 @@ duty_free_data/
 ├── product_master.csv       (108 rows)
 ├── flight_schedules.csv     (5,720 rows)
 ├── holiday_events.csv       (6 rows)
-└── transaction.csv          (22,194 rows)
+└── transaction.csv          (22,153 rows)
 
 duty_free.db                  ← SQLite for immediate SQL practice
 ```
