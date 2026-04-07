@@ -1,7 +1,9 @@
 ﻿event_id,event_name,start_date,end_date
 E-01,New Year Kickoff,2024-01-01,2024-01-07
 E-02,Lunar New Year,2024-02-08,2024-02-18
-E-03,Easter Long Weekend,2024-03-29,2024-04-01
-E-04,Chuseok,2024-09-13,2024-09-19
-E-05,Mid-Autumn Festival,2024-09-14,2024-09-18
-E-06,Christmas & New Year,2024-12-22,2024-12-31
+E-03,Lunar New Year - Souvenir,2024-02-08,2024-02-18
+E-04,Lunar New Year - Confectionery,2024-02-08,2024-02-18
+E-05,Easter Long Weekend,2024-03-29,2024-04-01
+E-06,Chuseok,2024-09-13,2024-09-19
+E-07,Mid-Autumn Festival,2024-09-14,2024-09-18
+E-08,Christmas & New Year,2024-12-22,2024-12-31
