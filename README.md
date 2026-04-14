@@ -19,7 +19,7 @@
 | **Setting** | Sydney International Airport (T1) Duty-Free Retail Operations |
 | **Period** | 1 January 2024 – 31 December 2024 (52 weeks) |
 | **Tables** | 5 Relational Tables (Normalised Schema) |
-| **Total records** | 22,038 Transactions |
+| **Total records** | 21,836 Transactions |
 | **Output** | 5 CSV files + 1 SQLite database |
 | **Reproducibility** | `random.seed(42)` fixed |
 
@@ -44,7 +44,7 @@
 | product_master | 108 | product_sku | | 108 SKUs across 9 categories |
 | flight_schedules | 5,907 | flight_id | | 52-week departure schedule |
 | holiday_events | 6 | event_id | | Jan–Dec holiday event calendar |
-| transactions | 22,038 | tx_id | customer_id, product_sku, flight_id, event_id | Fact table linking all entities|
+| transactions | 21,836 | tx_id | customer_id, product_sku, flight_id, event_id | Fact table linking all entities|
 
 ---
 
@@ -98,9 +98,9 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 | `end_date` | Event end date (YYYY-MM-DD) |
 ---
 
-### 5. transactions (22,038 transactions)
+### 5. transactions (21,836 transactions)
 
-This is the Fact Table containing 22,038 records.
+This is the Fact Table containing 21,836 records.
 
 | Column | Description |
 |---|---|
@@ -150,7 +150,7 @@ Upon execution, the following files will be generated in the duty_free_data/ dir
     ├── product_master.csv     (108 rows)   - Category hierarchy & unit pricing
     ├── flight_schedules.csv   (5,907 rows) - 52-week schedule with unique Flight_ID
     ├── holiday_events.csv     (6 rows)     - Major holiday calendar (YYYY-MM-DD)
-    └── transactions.csv       (22,038 rows)- Sales Fact table (Final Payment)
+    └── transactions.csv       (21,836 rows)- Sales Fact table (Final Payment)
 ```
 
 ---
