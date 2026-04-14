@@ -95,7 +95,6 @@ QUALIFY ROW_NUMBER() OVER (PARTITION BY CUSTOMER_ID ORDER BY CUSTOMER_ID) = 1;
 -- Category standardisation: maps synonyms/typos to canonical duty-free retail categories.
 -- Adds PROFIT_MARGIN for Gold-layer profitability analysis.
 -- Deduplication: QUALIFY ROW_NUMBER() on PRODUCT_SKU.
--- Null handling: COALESCE on text fields.
 
 CREATE OR REPLACE TABLE SYDNEY_DF_DB.SILVER.DIM_PRODUCTS AS
 SELECT 
@@ -161,7 +160,7 @@ QUALIFY ROW_NUMBER() OVER (PARTITION BY PRODUCT_SKU ORDER BY PRODUCT_SKU) = 1;
 -- Standardises airline names, destinations, and flight status.
 -- Deduplication: RAW_FLIGHTS has 5,907 rows but only 21 unique flights (daily schedule).
 -- This is a daily flight schedule table, so we keep all rows (one per departure).
--- QUALIFY dedup on FLIGHT_NO + DEPARTURE_TIME to remove exact duplicates only.
+-- QUALIFY dedup on FLIGHT_ID to remove exact duplicates only.
 -- Null handling: COALESCE on airline, destination, flight_status.
 
 CREATE OR REPLACE TABLE SYDNEY_DF_DB.SILVER.DIM_FLIGHTS AS
