@@ -39,7 +39,7 @@
 ```
 
 | Table | Rows | Primary Key | Foreign Keys | Description |
-|---|---|---|---|
+|---|---|---|---|---|
 | customer_details | 8,000 | customer_id | | Passenger demographics |
 | product_master | 108 | product_sku | | 108 SKUs across 9 categories |
 | flight_schedules | 5,907 | flight_id | | 52-week departure schedule |
@@ -98,7 +98,7 @@ All categories use **variant-based SKU generation** — every SKU row correspond
 | `end_date` | Event end date (YYYY-MM-DD) |
 ---
 
-### 5. transactions
+### 5. transactions (22,038 transactions)
 
 This is the Fact Table containing 22,038 records.
 
