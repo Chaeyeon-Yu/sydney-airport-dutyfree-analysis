@@ -162,7 +162,7 @@ This project was developed with the support of **Claude (Anthropic)** and **Gemi
 While AI accelerated the technical implementation, all domain-specific logic, strategic design decisions, and final code validation were conducted by the author to ensure data integrity and business relevance.
 
 **AI assistance was used for:**
-- - **Python Code Generation:** Iterative logic refinement for synthetic data scripts.
+- **Python Code Generation:** Iterative logic refinement for synthetic data scripts.
 - **Data Architecture Review:** Optimising the **Star Schema** and implementing **Composite-to-Surrogate Key mapping** (e.g., `flight_id`) for Snowflake compatibility.
 - **Silver Layer Optimisation (Cortex):** Leveraging **Snowflake Cortex** to clean and conform raw data. AI was used to suggest logic for filtering outliers and standardising non-structured elements (for the future dirty data) into a conformed schema suitable for analytical use.
 - **Gold Layer View Creation:** Assistance in architecting curated Gold Layer views, ensuring the final data models are optimised for Tableau visualisation and high-level business reporting.
