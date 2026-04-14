@@ -45,6 +45,7 @@
 | flight_schedules | 5,907 | flight_id | | 52-week departure schedule |
 | holiday_events | 6 | event_id | | Jan–Dec holiday event calendar |
 | transactions | 22,038 | tx_id | customer_id, product_sku, flight_id, event_id | Fact table linking all entities|
+
 ---
 
 ## 📐 Design Principles
