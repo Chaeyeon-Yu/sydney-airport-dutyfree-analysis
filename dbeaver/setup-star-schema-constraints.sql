@@ -104,6 +104,8 @@ CREATE TABLE "transactions_new" (
 
 INSERT INTO "transactions_new" SELECT * FROM "transactions";
 
+SELECT * FROM transactions_new;
+
 DROP TABLE "transactions";
 ALTER TABLE "transactions_new" RENAME TO "transactions";
 
