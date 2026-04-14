@@ -1,0 +1,5 @@
+*.ipynb linguist-vendored
+*.csv linguist-vendored
+*.db linguist-vendored
+
+*.sql linguist-detectable=true
